@@ -1,0 +1,17 @@
+lw r0, 88(r1)
+add r2, r0, r1
+blt r0, r2, alpha
+jal r3, beta
+alpha: and r6 r4 r5
+beta: sll r9 r7 r8
+jalr r16, r18, delta
+bne r15, r16, omega
+delta: sub r12 r13 r14
+omega: xor r17 r18 r19
+lui r20, 32
+addi r12, r12, 46
+sw r21, 92(r1)
+beq r28, r29, zee
+bge r30, r31, sony
+zee: or r22 r23 r24
+sony: sra r25 r26 r27
