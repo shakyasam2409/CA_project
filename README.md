@@ -2,12 +2,18 @@
 
 In this project we have implemented RISCV RV32I simulator. This code takes  input from a text file containing the assembly instructions. Each line of the text file may be of one of 3 types:
 ● A label followed by an instruction
+
 ● An instruction
+
 Each of these entities has the following grammar:
+
 ● The syntax of all the supported instructions is given above. The fields of instruction are
 whitespace-separated. An instruction can be one of the following:
+
 ○ The opcode must be one of the supported mnemonic mentioned in the table.
+
 ○ A register can be one of r0, r1, ... r31.
+
 ● A label marks a location in the code and must be followed by a colon (:). No spaces are
 allowed between label name and colon(:). A label name consists of alphanumeric
 characters and underscores. Exactly one space is allowed after “:” and the opcode
