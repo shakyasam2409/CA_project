@@ -1,16 +1,16 @@
 # CA_project
 
 In this project we have implemented RISCV RV32I simulator. This code takes  input from a text file containing the assembly instructions. Each line of the text file may be of one of 3 types:
+
 ● A label followed by an instruction
 
 ● An instruction
 
-Each of these entities has the following grammar:
+In addition:
 
-● The syntax of all the supported instructions is given above. The fields of instruction are
-whitespace-separated. An instruction can be one of the following:
+● The fields of instruction are comma-separated. An instruction can be one of the following:
 
-○ The opcode must be one of the supported mnemonic mentioned in the table.
+○ The opcode must be one of the abbreviations mentioned in the given table.
 
 ○ A register can be one of r0, r1, ... r31.
 
@@ -24,26 +24,23 @@ mylabel: add r1 r2 r3
 
 We have implemented the following instructions
 Instruction Description
-ADD         Addition
-ADDI        Add Immediate
-SUB         Subtraction
-LW          Load word
-SW          Store Word
-JALR        Jump and Link Register
-JAL         Jump and Link
-BEQ         Branch Equal to
-BNE         Branch Not equal to
-BLT         Branch Less than
-BGE         Branch greater than equal
 
-LUI         Load Upper Immediate
-AND         AND
-OR          OR
-XOR         XOR
-SLL         Shift Logical left
-SRA         Shift Right Arithmetic
+1. Load Instructions -  LW - Load word
 
-the assembler gives a 32 bit binary instruction which is input to the simulator.
+2. Store Instructions - SW - Store Word
+
+3. Shift Instructions - SLL - Shift Logical left, SRA - Shift Right Arithmetic
+
+4. Ari;thmetic Instructions - ADD – Addition, ADDI - Add Immediate, SUB – Subtraction, LUI - Load Upper Immediate
+
+5. Logical Instructions –  XOR – XOR, OR – OR, AND - AND
+
+6. Branch Instructions – BEQ - Branch Equal to, BNE - Branch Not equal to, BLT - Branch Less than, BGE - Branch greater than equal 
+
+7. Jump and Link Instructions - JALR - Jump and Link Register, JAL - Jump and Link
+
+
+The Assembler gives a 32-bit binary instruction which is given as input to the simulator.
 
 The simulator decodes and then execute the instruction. It has a main memory as wll as l1 level cache.
 
