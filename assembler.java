@@ -869,6 +869,9 @@ return -1;
 	    System.out.println(register.get("r30"));
 	    System.out.println(register.get("r31")); */
 	    
+	    for(int f=0;f<1023;f=f+4) {
+	    	System.out.println(memory[f]);
+	    }
 	    System.out.println(cycles);
 	    
 	}
