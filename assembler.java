@@ -42,22 +42,26 @@ return -1;
 	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		String[] arr=new String[17];
-		String[] binary=new String[17];
+        ArrayList<String> arr3
+        = new ArrayList<String>();
+
 	    File file = new File("C:\\Users\\anant\\Desktop\\assembly_code.txt");
 	    @SuppressWarnings("resource")
 		Scanner in = new Scanner(file);
-	    int a=0;
 	    int e=0;
 	    while (in.hasNextLine()) {
-	    	arr[a]=in.nextLine();
-	    	arr[a]=arr[a].replaceAll("\\s", "");
-	    	a++;
+	    	arr3.add(in.nextLine().replaceAll("\\s", ""));
 	    }
 	    
+	    int a=arr3.size();
 	    
+		String[] arr=new String[a];
+		String[] binary=new String[a];
+		for(int g=0;g<a;g++) {
+			arr[g]=arr3.get(g);
+		}
 	    
-	    for(int i=0;i<17;i++) {
+	    for(int i=0;i<a;i++) {
 	    	if(arr[i].contains("lw")==true) {
 	    		int x=no(arr[i], 'r', 1);
 	    	    for(int p=0;p<arr[i].length();p++) {
@@ -143,7 +147,7 @@ return -1;
         			}
         		}
         		String[] arr2=new String[1];
-    				for(int k=0;k<17;k++) {
+    				for(int k=0;k<a;k++) {
     					int res=is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));			    	
     			        if(res!=-1) {
     			        	arr2[0]=Integer.toBinaryString((k-(i+1))*4);
@@ -177,7 +181,7 @@ return -1;
 		    		}
 		    	}
 		    	String[] arr2=new String[1];
-    				for(int k=0;k<17;k++) {
+    				for(int k=0;k<a;k++) {
     					int res=is(arr[i].substring(u+1), arr[k].substring(0,no(arr[k], 'r', 1)));		    	
     			        if(res!=-1) {
     			        	arr2[0]=Integer.toBinaryString((k-(i+1))*4);
@@ -276,7 +280,7 @@ return -1;
                 }
 
                 String[] arr2=new String[1];
-                for(int k=0;k<17;k++) {
+                for(int k=0;k<a;k++) {
                     int res=is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if(res!=-1) {
                         arr2[0]=Integer.toBinaryString((k-(i+1))*4);
@@ -345,7 +349,7 @@ return -1;
                     }
                 }
                 String[] arr2=new String[1];
-                for(int k=0;k<17;k++) {
+                for(int k=0;k<a;k++) {
                     int res=is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if(res!=-1) {
                         arr2[0]=Integer.toBinaryString((k-(i+1))*4);
@@ -539,7 +543,7 @@ return -1;
                     }
                 }
                 String[] arr2 = new String[1];
-                for (int k = 0; k < 17; k++) {
+                for (int k = 0; k < a; k++) {
                     int res = is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if (res != -1) {
                         arr2[0] = Integer.toBinaryString((k - (i + 1)) * 4);
@@ -580,7 +584,7 @@ return -1;
                     }
                 }
                 String[] arr2 = new String[1];
-                for (int k = 0; k < 17; k++) {
+                for (int k = 0; k < a; k++) {
                     int res = is(arr[i].substring(v + 1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if (res != -1) {
                         arr2[0] = Integer.toBinaryString((k - (i + 1)) * 4);
@@ -635,47 +639,19 @@ return -1;
 	    
 	    String[] memory=new String[1024];
 	    
-	    memory[0]=binary[0];
-	    memory[4]=binary[1];
-	    memory[8]=binary[2];
-	    memory[12]=binary[3];
-	    memory[16]=binary[4];
-	    memory[20]=binary[5];
-	    memory[24]=binary[6];
-	    memory[28]=binary[7];
-	    memory[32]=binary[8];
-	    memory[36]=binary[9];
-	    memory[40]=binary[10];
-	    memory[44]=binary[11];
-	    memory[48]=binary[12];
-	    memory[52]=binary[13];
-	    memory[56]=binary[14];
-	    memory[60]=binary[15];
-	    memory[64]=binary[16];
-	    
-	    for(int i=68;i<1023;i=i+4) {
+	    for(int g=0;g<a;g++) {
+	    	memory[g*4]=binary[g];
+	    }
+
+	    for(int i=a*4;i<1023;i=i+4) {
 	    	memory[i]="00000000000000000000000000000101";
 	    }
 	    
-	    int[] pc=new int[68];
+	    int[] pc=new int[a];
 	    
-	    pc[0]=0;
-	    pc[1]=4;
-	    pc[2]=8;
-	    pc[3]=12;
-	    pc[4]=16;
-	    pc[5]=20;
-	    pc[6]=24;
-	    pc[7]=28;
-	    pc[8]=32;
-	    pc[9]=36;
-	    pc[10]=40;
-	    pc[11]=44;
-	    pc[12]=48;
-	    pc[13]=52;
-	    pc[14]=56;
-	    pc[15]=60;
-	    pc[16]=64;
+	    for(int g=0;g<a;g++) {
+	    	pc[g]=g*4;
+	    }
 	    
 	    int r0=0,r1=0,r2=0,r3=0,r4=0,r5=0,r6=0,r7=0,r8=0,r9=0,r10=0,r11=0,r12=0,r13=0,r14=0,r15=0;
 	    int r16=0,r17=0,r18=0,r19=0,r20=0,r21=0,r22=0,r23=0,r24=0,r25=0,r26=0,r27=0,r28=0,r29=0,r30=0,r31=0;
@@ -717,7 +693,7 @@ return -1;
 	    
 	    int i=0;
 	    int cycles=0;
-	    while(i<17) {
+	    while(i<a) {
 	    	if (memory[pc[i]].substring(25,30).equals("00000")==true) {
 	    		int s=register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))+Integer.parseInt(memory[pc[i]].substring(0,12),2);
 	    		if (s%4!=0) {
@@ -828,7 +804,20 @@ return -1;
 	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))+Integer.parseInt(memory[pc[i]].substring(0,12),2));
 	    	}	  
 	    	
-	    	
+	    	else if (memory[pc[i]].substring(25).equals("0100011")==true && memory[pc[i]].substring(17,20).equals("010")==true) {
+	    		int s=register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))+Integer.parseInt(memory[pc[i]].substring(0,7).concat(memory[pc[i]].substring(20,25)),2);
+	    		if (s%4!=0) {
+	    			s=s*4;
+	    		}
+	    		memory[s]=Integer.toBinaryString(register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2)))));
+			    int size5=32-memory[s].length();
+			    if (size5!=0) {
+			    	for (int j=0;j<size5;j++) {
+			    		memory[s]="0".concat(memory[s]);
+			    	}	
+			    }	    		
+//	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), Integer.parseInt(memory[s],2));
+	    	} 	    	
 	    	
 	    	i++;
 	    	cycles=i*5;
@@ -871,8 +860,13 @@ return -1;
 	    
 	    for(int f=0;f<1023;f=f+4) {
 	    	System.out.println(memory[f]);
-	    }
-	    System.out.println(cycles);
+	    } 	    
+	    
+	    System.out.println(cycles); 
+	    
+//	    System.out.println(Integer.toBinaryString(register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[12]].substring(7,12),2))))));
+	    
+//	    System.out.println(memory[register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[12]].substring(12,17),2))))+Integer.parseInt(memory[pc[12]].substring(0,7).concat(memory[pc[12]].substring(20,25)),2)]);
 	    
 	}
 }
