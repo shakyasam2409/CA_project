@@ -1,6 +1,8 @@
 package module1;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class assembler {
@@ -48,7 +50,6 @@ return -1;
 	    File file = new File("C:\\Users\\anant\\Desktop\\assembly_code.txt");
 	    @SuppressWarnings("resource")
 		Scanner in = new Scanner(file);
-	    int e=0;
 	    while (in.hasNextLine()) {
 	    	arr3.add(in.nextLine().replaceAll("\\s", ""));
 	    }
@@ -62,6 +63,9 @@ return -1;
 		}
 	    
 	    for(int i=0;i<a;i++) {
+    		if(no(arr[i], ':', 1)!=-1) {
+    			arr[i]=arr[i].substring(no(arr[i], ':', 1));
+    		}	    	
 	    	if(arr[i].contains("lw")==true) {
 	    		int x=no(arr[i], 'r', 1);
 	    	    for(int p=0;p<arr[i].length();p++) {
@@ -150,7 +154,7 @@ return -1;
     				for(int k=0;k<a;k++) {
     					int res=is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));			    	
     			        if(res!=-1) {
-    			        	arr2[0]=Integer.toBinaryString((k-(i+1))*4);
+    			        	arr2[0]=Integer.toBinaryString((k-i)*4);
     			        	int size4=12-arr2[0].length();
     			        	if(size4!=0) {
     			        		for(int n=0;n<size4;n++) {
@@ -184,7 +188,7 @@ return -1;
     				for(int k=0;k<a;k++) {
     					int res=is(arr[i].substring(u+1), arr[k].substring(0,no(arr[k], 'r', 1)));		    	
     			        if(res!=-1) {
-    			        	arr2[0]=Integer.toBinaryString((k-(i+1))*4);
+    			        	arr2[0]=Integer.toBinaryString((k-i)*4);
     			        	int size4=20-arr2[0].length();
     			        	if(size4!=0) {
     			        		for(int n=0;n<size4;n++) {
@@ -283,7 +287,7 @@ return -1;
                 for(int k=0;k<a;k++) {
                     int res=is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if(res!=-1) {
-                        arr2[0]=Integer.toBinaryString((k-(i+1))*4);
+                        arr2[0]=Integer.toBinaryString((k-i)*4);
                         int size4=12-arr2[0].length();
                         if(size4!=0) {
                             for(int n=0;n<size4;n++) {
@@ -352,7 +356,7 @@ return -1;
                 for(int k=0;k<a;k++) {
                     int res=is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if(res!=-1) {
-                        arr2[0]=Integer.toBinaryString((k-(i+1))*4);
+                        arr2[0]=Integer.toBinaryString((k-i)*4);
                         int size4=12-arr2[0].length();
                         if(size4!=0) {
                             for(int n=0;n<size4;n++) {
@@ -546,7 +550,7 @@ return -1;
                 for (int k = 0; k < a; k++) {
                     int res = is(arr[i].substring(v+1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if (res != -1) {
-                        arr2[0] = Integer.toBinaryString((k - (i + 1)) * 4);
+                        arr2[0] = Integer.toBinaryString((k - i) * 4);
                         int size4 = 12 - arr2[0].length();
                         if (size4 != 0) {
                             for (int n = 0; n < size4; n++) {
@@ -587,7 +591,7 @@ return -1;
                 for (int k = 0; k < a; k++) {
                     int res = is(arr[i].substring(v + 1), arr[k].substring(0,no(arr[k], 'r', 1)));
                     if (res != -1) {
-                        arr2[0] = Integer.toBinaryString((k - (i + 1)) * 4);
+                        arr2[0] = Integer.toBinaryString((k - i) * 4);
                         int size4 = 12 - arr2[0].length();
                         if (size4 != 0) {
                             for (int n = 0; n < size4; n++) {
@@ -636,237 +640,15 @@ return -1;
 	    	
 	    } 
 	    
-	    
-	    String[] memory=new String[1024];
-	    
-	    for(int g=0;g<a;g++) {
-	    	memory[g*4]=binary[g];
-	    }
+	    String text=binary[0];
 
-	    for(int i=a*4;i<1023;i=i+4) {
-	    	memory[i]="00000000000000000000000000000101";
-	    }
-	    
-	    int[] pc=new int[a];
-	    
-	    for(int g=0;g<a;g++) {
-	    	pc[g]=g*4;
-	    }
-	    
-	    int r0=0,r1=0,r2=0,r3=0,r4=0,r5=0,r6=0,r7=0,r8=0,r9=0,r10=0,r11=0,r12=0,r13=0,r14=0,r15=0;
-	    int r16=0,r17=0,r18=0,r19=0,r20=0,r21=0,r22=0,r23=0,r24=0,r25=0,r26=0,r27=0,r28=0,r29=0,r30=0,r31=0;
-	    
-	    Dictionary<String, Integer> register = new Hashtable<String, Integer>();
-	    
-	    register.put("r0", r0);
-	    register.put("r1", r1);
-	    register.put("r2", r2);
-	    register.put("r3", r3);
-	    register.put("r4", r4);
-	    register.put("r5", r5);
-	    register.put("r6", r6);
-	    register.put("r7", r7);
-	    register.put("r8", r8);
-	    register.put("r9", r9);
-	    register.put("r10", r10);
-	    register.put("r11", r11);
-	    register.put("r12", r12);
-	    register.put("r13", r13);
-	    register.put("r14", r14);
-	    register.put("r15", r15);
-	    register.put("r16", r16);
-	    register.put("r17", r17);
-	    register.put("r18", r18);
-	    register.put("r19", r19);
-	    register.put("r20", r20);
-	    register.put("r21", r21);
-	    register.put("r22", r22);
-	    register.put("r23", r23);
-	    register.put("r24", r24);
-	    register.put("r25", r25);
-	    register.put("r26", r26);
-	    register.put("r27", r27);
-	    register.put("r28", r28);
-	    register.put("r29", r29);	    
-	    register.put("r30", r30);
-	    register.put("r31", r31);
-	    
-	    int i=0;
-	    int cycles=0;
-	    while(i<a) {
-	    	if (memory[pc[i]].substring(25,30).equals("00000")==true) {
-	    		int s=register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))+Integer.parseInt(memory[pc[i]].substring(0,12),2);
-	    		if (s%4!=0) {
-	    			s=s*4;
-	    		}
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), Integer.parseInt(memory[s],2));
-	    	} 
-//	    System.out.println("r".concat(Integer.toString(Integer.parseInt(memory[pc[0]].substring(20,25),2))));
+	    for(int f=1;f<a;f++) {
 	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("000")==true && memory[pc[i]].substring(0,5).equals("00000")==true && memory[pc[i]].substring(25).equals("0110011")==true) {
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))+register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2)))));
-//	    		System.out.println("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))));
-	    	} 
-	    	
-//	    		System.out.println(register.get("r2"));
-	    		
-	    	else if (memory[pc[i]].substring(17,20).equals("100")==true && memory[pc[i]].substring(25).equals("1100011")==true) {
-	    		if (register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))<register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2))))) {
-	    			String temp=memory[pc[i]].substring(1,7).concat(memory[pc[i]].substring(20,24));
-	    			temp=memory[pc[i]].substring(24,25).concat(temp);
-	    			temp=memory[pc[i]].substring(0,1).concat(temp);
-	    			i=i+(Integer.parseInt(temp, 2)/4);
-	    		}
-	    	} 
-	    	
-	    	else if (memory[pc[i]].substring(25).equals("1101111")==true) {
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), pc[i]+4);
-	    			String temp=memory[pc[i]].substring(11,12).concat(memory[pc[i]].substring(1,11));
-	    			temp=memory[pc[i]].substring(12,20).concat(temp);
-	    			temp=memory[pc[i]].substring(0,1).concat(temp);
-	    			i=i+(Integer.parseInt(temp, 2)/4);
-	    	} 	   	
-	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("111")==true) {
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))&register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2)))));
-	    	} 	
-	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("001")==true) {
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))<<register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2)))));
-	    	} 	
-	    	
-	    	else if (memory[pc[i]].substring(0,7).equals("0100000") && memory[pc[i]].substring(17,20).equals("000") && memory[pc[i]].substring(25,32).equals("0110011")) {
-            register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20, 25), 2))),
-                    register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12, 17), 2)))) -
-                            register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7, 12), 2)))));
-
-        }
-
-	    	else if (memory[pc[i]].substring(17,20).equals("000") && memory[pc[i]].substring(25,32).equals("1100111")) {
-
-                int temp = pc[i] + 4;
-
-                int rs1 = register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,16),2))));
-
-                int offset = Integer.parseInt(memory[pc[i]].substring(0,12),2);
-
-                pc[i] = (rs1 + offset)&~1;
-
-                register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,24),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,16),2))))+register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,11),2)))));
-            }
-
-	    	else if (memory[pc[i]].substring(17,20).equals("001") && memory[pc[i]].substring(25,32).equals("1100011")) {
-                if (register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2)))) != register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2))))) {
-                    String temp=memory[pc[i]].substring(1,7).concat(memory[pc[i]].substring(20,25));
-                    temp=memory[pc[i]].substring(24,25).concat(temp);
-                    temp=memory[pc[i]].substring(0,1).concat(temp);
-                    i=i+(Integer.parseInt(temp, 2)/4);
-                }
-            }
-
-	    	else if (memory[pc[i]].substring(25).equals("0110111")) {
-                register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), (Integer.parseInt(memory[pc[i]].substring(0,20), 2) << 12));
-            }
-
-	    	else if (memory[pc[i]].substring(0,7).equals("0000000") && memory[pc[i]].substring(17,20).equals("100") && memory[pc[i]].substring(25,32).equals("0110011")) {
-                register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20, 25), 2))),
-                        register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12, 17), 2)))) ^
-                                register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7, 12), 2)))));
-            }	    
-	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("000")==true && memory[pc[i]].substring(25).equals("1100011")==true) {
-	    		if (register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))<register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2))))) {
-	    			String temp=memory[pc[i]].substring(1,7).concat(memory[pc[i]].substring(20,24));
-	    			temp=memory[pc[i]].substring(24,25).concat(temp);
-	    			temp=memory[pc[i]].substring(0,1).concat(temp);
-	    			i=i+(Integer.parseInt(temp, 2)/4);
-	    		}
-	    	} 
-	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("101")==true && memory[pc[i]].substring(25).equals("1100011")==true) {
-	    		if (register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))<register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2))))) {
-	    			String temp=memory[pc[i]].substring(1,7).concat(memory[pc[i]].substring(20,24));
-	    			temp=memory[pc[i]].substring(24,25).concat(temp);
-	    			temp=memory[pc[i]].substring(0,1).concat(temp);
-	    			i=i+(Integer.parseInt(temp, 2)/4);
-	    		}
-	    	} 	    
-	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("111") && memory[pc[i]].substring(0,7).equals("0000000") && memory[pc[i]].substring(25).equals("0110011")) {
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))|register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2)))));
-	    	} 	
-	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("101") && memory[pc[i]].substring(0,7).equals("0100000") && memory[pc[i]].substring(25).equals("0110011")) {
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))>>register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2)))));
-	    	}	    	
-	    	
-	    	else if (memory[pc[i]].substring(17,20).equals("000") && memory[pc[i]].substring(25).equals("0010011")) {
-	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))+Integer.parseInt(memory[pc[i]].substring(0,12),2));
-	    	}	  
-	    	
-	    	else if (memory[pc[i]].substring(25).equals("0100011")==true && memory[pc[i]].substring(17,20).equals("010")==true) {
-	    		int s=register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(12,17),2))))+Integer.parseInt(memory[pc[i]].substring(0,7).concat(memory[pc[i]].substring(20,25)),2);
-	    		if (s%4!=0) {
-	    			s=s*4;
-	    		}
-	    		memory[s]=Integer.toBinaryString(register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(7,12),2)))));
-			    int size5=32-memory[s].length();
-			    if (size5!=0) {
-			    	for (int j=0;j<size5;j++) {
-			    		memory[s]="0".concat(memory[s]);
-			    	}	
-			    }	    		
-//	    		register.put("r".concat(Integer.toString(Integer.parseInt(memory[pc[i]].substring(20,25),2))), Integer.parseInt(memory[s],2));
-	    	} 	    	
-	    	
-	    	i++;
-	    	cycles=i*5;
+	    	text=text.concat("\n".concat(binary[f]));
 	    } 
 	    
-//	    System.out.println(register.get("r3"));
-	    
-/*	    System.out.println(register.get("r0"));
-	    System.out.println(register.get("r1"));
-	    System.out.println(register.get("r2"));
-	    System.out.println(register.get("r3"));
-	    System.out.println(register.get("r4"));
-	    System.out.println(register.get("r5"));
-	    System.out.println(register.get("r6"));
-	    System.out.println(register.get("r7"));
-	    System.out.println(register.get("r8"));
-	    System.out.println(register.get("r9")); 
-	    System.out.println(register.get("r10"));
-	    System.out.println(register.get("r11"));
-	    System.out.println(register.get("r12"));
-	    System.out.println(register.get("r13"));
-	    System.out.println(register.get("r14"));
-	    System.out.println(register.get("r15"));
-	    System.out.println(register.get("r16"));
-	    System.out.println(register.get("r17"));
-	    System.out.println(register.get("r18"));
-	    System.out.println(register.get("r19")); 	    
-	    System.out.println(register.get("r20"));
-	    System.out.println(register.get("r21"));
-	    System.out.println(register.get("r22"));
-	    System.out.println(register.get("r23"));
-	    System.out.println(register.get("r24"));
-	    System.out.println(register.get("r25"));
-	    System.out.println(register.get("r26"));
-	    System.out.println(register.get("r27"));
-	    System.out.println(register.get("r28"));
-	    System.out.println(register.get("r29")); 
-	    System.out.println(register.get("r30"));
-	    System.out.println(register.get("r31")); */
-	    
-	    for(int f=0;f<1023;f=f+4) {
-	    	System.out.println(memory[f]);
-	    } 	    
-	    
-	    System.out.println(cycles); 
-	    
-//	    System.out.println(Integer.toBinaryString(register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[12]].substring(7,12),2))))));
-	    
-//	    System.out.println(memory[register.get("r".concat(Integer.toString(Integer.parseInt(memory[pc[12]].substring(12,17),2))))+Integer.parseInt(memory[pc[12]].substring(0,7).concat(memory[pc[12]].substring(20,25)),2)]);
-	    
+	    Path fileName = Path.of("C:\\Users\\anant\\Desktop\\binary.txt");
+        Files.writeString(fileName, text);
+
 	}
 }
